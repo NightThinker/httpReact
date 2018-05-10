@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 import './NewPost.css';
 
@@ -7,7 +8,8 @@ class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'May'
+        author: 'May',
+        summitted: false
     }
 
     postDataHandler = () => {
@@ -19,6 +21,7 @@ class NewPost extends Component {
         axios.post('/posts', data)
             .then(response => {
                 console.log('response: ', response);
+                this.setState({summitted: true})
             })
             .catch(error => {
                 console.log('error: ', error);
@@ -26,8 +29,13 @@ class NewPost extends Component {
     }
 
     render () {
+        let redirect = null;
+        if(this.state.summitted) {
+            redirect = <Redirect to="/posts" />
+        }
         return (
             <div className="NewPost">
+                {redirect}
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />
