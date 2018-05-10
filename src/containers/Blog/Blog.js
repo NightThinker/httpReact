@@ -18,7 +18,7 @@ class Blog extends Component {
                         <ul>
                             <li><Link to="/">Home</Link></li>
                             <li><Link to={{
-                                pathname: '/new-post',
+                                pathname: this.props.match.url + '/new-post',
                                 hash: '#summit',
                                 search: '?quick-summit=true'
                             }}>New Post</Link></li>
